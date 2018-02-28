@@ -19,13 +19,10 @@ Apart from adjusting the above values, I'm using pervious steering value to adju
 
 ## Video of the drive on track 
 
-#. DataSet1
+[Video of the drive](https://youtu.be/Le-h0WDoEYU)
 
-![alt text][video1]
-
-
-# Note
-Above video doesn't exactly reflect what I see. There's some issue when I try to record using QuickTime. It doesn't hit the boundaries, and goes close to 70mph.
+### Note
+Above video doesn't exactly reflect what I see when PID runs on my computer. There's some issue when I try to record using QuickTime. It slows down the car speed. When I run without quickTime, it doesn't hit the boundaries, and goes close to 70mph.
 
 ## Dependencies
 
