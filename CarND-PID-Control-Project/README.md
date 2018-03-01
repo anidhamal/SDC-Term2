@@ -8,13 +8,26 @@ Self-Driving Car Engineer Nanodegree Program
 ---
 
 ## P, I, D values for the PID algorithm
-After tuning the values manually, I came up with following values for PID which drives vehicle around the track.
+
+##### Proportional (Kp) 
+Proportional value takes the current value of the error and estimates what should be steering angle so that car will be on the desired line. This would help to get the correct steering angle but it would still make car oscillate.
+
+##### Differential (Kd)
+This value has an effect to reduce oscillation of the car. This would try to reduce rate of change of error aiming it to zero.
+
+##### Integral (Ki)
+This value has an effect to slowly change the steering angle. It considers all the values up till now. It responds to accumulated values in the past.
+
+I tuned P, I, D values manually. I followed the approach where I first kept values of Kd & Ki as 0 and only focus on Kp. After tuning that value and started seeing the car oscillating. Focused on Kd to avoid overshooting And in the end worked on Ki since it has slow effect on reducing error.
+
+After tuning the values manually, I came up with following values for PID which drives vehicle around the track. 
 ```
 Kp = 0.225;
 Kd = 10.0;
 Ki = 0.003;
 ```
 Apart from adjusting the above values, I'm using pervious steering value to adjust throttle.
+
 
 
 ## Video of the drive on track 
