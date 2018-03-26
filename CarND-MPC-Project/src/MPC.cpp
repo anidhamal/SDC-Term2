@@ -51,7 +51,7 @@ class FG_eval {
     fg[0] = 0;
     // Cost based on reference state
     for (int i=0; i < N; i++) {
-      fg[0] += 1500 * CppAD::pow(vars[cte_start+i], 2);
+      fg[0] += 1000 * CppAD::pow(vars[cte_start+i], 2);
       fg[0] += 1000 * CppAD::pow(vars[epsi_start+i], 2);
       fg[0] += CppAD::pow(vars[v_start+i] - ref_v, 2);
     }
@@ -65,7 +65,7 @@ class FG_eval {
     // Cost to minimize sudden rate change
     // This keeps it more consistent & smoother.
     for (int i=0; i < N -2 ; i++) {
-      fg[0] +=  6000 * CppAD::pow(vars[delta_start+i+1] - vars[delta_start+i], 2);
+      fg[0] +=  20000 * CppAD::pow(vars[delta_start+i+1] - vars[delta_start+i], 2);
       fg[0] +=  1000 * CppAD::pow(vars[a_start+i+1] - vars[a_start + i], 2);
     }  
     std::cout << "Filled fg_0 " << std::endl;

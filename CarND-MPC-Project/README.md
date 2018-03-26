@@ -15,7 +15,7 @@ The equations of the model used for this project
 
 ## Timestep Length and Elapsed Duration (N & dt)
 
-I chose the values of N & dt by manually tuning. I started with N as 25 & dt as 0.05 with reference speed as 40 mph. As I increased reference speed to 50mph, these N & dt values had erratic behavior. It was getting worst when I increase value of N keeping dt same. By increasing value of dt, I was getting better results. I increased speed at each step by 10mph and adjusted N by lowering it and increasing dt value. Finally I settled with N as 18 and dt as 0.05 for reference speed 70mph.
+I chose the values of N & dt by manually tuning. I started with N as 25 & dt as 0.05 with reference speed as 40 mph. As I increased reference speed to 50mph, these N & dt values had erratic behavior. It was getting worst when I increase value of N keeping dt same. By increasing value of dt, I was getting better results. I increased speed at each step by 10mph and adjusted N by lowering it and increasing dt value. Finally I settled with N as 10 and dt as 0.2 for reference speed 85mph.
 
 ## Polynomial Fitting and MPC Preprocessing
 
