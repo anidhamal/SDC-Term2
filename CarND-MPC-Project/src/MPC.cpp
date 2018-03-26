@@ -6,8 +6,8 @@
 using CppAD::AD;
 
 // TODO: Set the timestep length and duration
-size_t N = 18;
-double dt = 0.055;
+size_t N = 10;
+double dt = 0.2;
 
 // This value assumes the model presented in the classroom is used.
 //
@@ -21,8 +21,8 @@ double dt = 0.055;
 // This is the length from front to CoG that has a similar radius.
 const double Lf = 2.67;
 
-// The reference velocity is set to 45 mph.
-double ref_v = 70;
+// The reference velocity is set to 85 mph.
+double ref_v = 85 * 0.44704;
 
 // The solver takes all the state variables and actuator
 // variables in a singular vector. Thus, we should to establish
@@ -51,22 +51,22 @@ class FG_eval {
     fg[0] = 0;
     // Cost based on reference state
     for (int i=0; i < N; i++) {
-      fg[0] += CppAD::pow(vars[cte_start+i], 2);
-      fg[0] += CppAD::pow(vars[epsi_start+i], 2);
+      fg[0] += 1500 * CppAD::pow(vars[cte_start+i], 2);
+      fg[0] += 1000 * CppAD::pow(vars[epsi_start+i], 2);
       fg[0] += CppAD::pow(vars[v_start+i] - ref_v, 2);
     }
 
     // Cost to minimize sudden magnitude change
     for (int i=0; i < N -1 ; i++) {
-      fg[0] += CppAD::pow(vars[delta_start+i], 2);
+      fg[0] += 10 * CppAD::pow(vars[delta_start+i], 2);
       fg[0] += CppAD::pow(vars[a_start+i], 2);
     }    
 
     // Cost to minimize sudden rate change
     // This keeps it more consistent & smoother.
     for (int i=0; i < N -2 ; i++) {
-      fg[0] += CppAD::pow(vars[delta_start+i+1] - vars[delta_start+i], 2);
-      fg[0] += CppAD::pow(vars[a_start+i+1] - vars[a_start + i], 2);
+      fg[0] +=  6000 * CppAD::pow(vars[delta_start+i+1] - vars[delta_start+i], 2);
+      fg[0] +=  1000 * CppAD::pow(vars[a_start+i+1] - vars[a_start + i], 2);
     }  
     std::cout << "Filled fg_0 " << std::endl;
     // Initial constraints
@@ -141,12 +141,12 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
     vars[i] = 0;
   }
 
-  double x = state[0];
-  double y = state[1];
-  double psi = state[2];
-  double v = state[3];
-  double cte = state[4];
-  double epsi = state[5];
+  const double x = state[0];
+  const double y = state[1];
+  const double psi = state[2];
+  const double v = state[3];
+  const double cte = state[4];
+  const double epsi = state[5];
 
   std::cout << "Solve " << std::endl; 
   Dvector vars_lowerbound(n_vars);
@@ -158,8 +158,8 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   }
 
   for(int i = delta_start; i < a_start; i++) {
-    vars_lowerbound[i] = -0.436332*Lf;
-    vars_upperbound[i] =  0.436332*Lf;
+    vars_lowerbound[i] = -0.436332;
+    vars_upperbound[i] =  0.436332;
   }
 
   for(int i = a_start; i < n_vars; i++) {

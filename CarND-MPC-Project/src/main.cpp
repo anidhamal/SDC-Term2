@@ -91,6 +91,7 @@ int main() {
           double py = j[1]["y"];
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
+          v = v * 0.44704; // converting mph to mps.
 
           /*
           * TODO: Calculate steering angle and throttle using MPC.
@@ -132,7 +133,7 @@ int main() {
           state[5] = -atan(coeffs[1]);
           
           auto result = mpc.Solve(state, coeffs);
-          steer_value = result[0]/(deg2rad(25)*Lf);;
+          steer_value = result[0]/(deg2rad(25));
           throttle_value = result[1];
 
           json msgJson;
